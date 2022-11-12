@@ -3,14 +3,14 @@
 /* 
 1. Classes
 2. Inheritance
-3. Fetch Call (Neywork requests)
+3. Fetch Call (Network requests)
 4. Dependency Injection (DI) 
 */
 
-// classes are the building block of object oriented programming. Its blueprint of any object
+// classes are the building block of object oriented programming. Its blueprint/template for creting objects
 // Object is created from class
 
-class Person {
+/* class Person {
   // Properties
   name = "Sushi";
   age = 35;
@@ -26,7 +26,7 @@ const person1 = new Person();
 const person2 = new Person();
 
 console.log(person1.getName("Sagar"));
-console.log(person2.getName("John"));
+console.log(person2.getName("John")); */
 
 // Class Constructor
 // constructor is a function and its called whenever an object is created
@@ -73,13 +73,13 @@ console.log(bike3.name)
 */
 
 // Inheritance
-// Inherit parents properties and can even change parent properties.
-// Inheritance is useful for code reusability: reuse properties and methods of an existing class when we create a new class.
+// Inherit parents properties and can even change parent properties
+// Inheritance is useful for code reusability: reuse properties and methods of an existing class when we create a new class
 
 class Honda extends Bike {
   constructor(name, model, color, engine) {
-    // The super() method refers to the parent class.
-    // By calling the super() method in the constructor method, we call the parent's constructor method and gets access to the parent's properties and methods.
+    // The super() method refers to the parent class
+    // By calling the super() method in the constructor method, we call the parent's constructor method and gets access to the parent's properties and methods
     super(name, model, color);
     this.engine = engine;
   }
@@ -87,7 +87,7 @@ class Honda extends Bike {
     return this.engine;
   }
 
-  sound() {
+  engNo() {
     return "Hieuuuuu";
   }
 }
@@ -95,3 +95,59 @@ class Honda extends Bike {
 const honda1 = new Honda("Suzuki", 2020, "green", 5999345566789);
 console.log(honda1.engineNo);
 console.log(honda1.sound());
+
+// Assignment
+
+// parent class Person
+class Person {
+  // properties of Person class
+  firstName;
+  lastName;
+  age;
+  gender;
+  // Lets create constructor so that it can be called whenever a new object is created
+  constructor(firstName, lastName, age, gender) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.gender = gender;
+  }
+  // method of Person class
+  personality(behaviour) {
+    return behaviour;
+  }
+}
+
+// Man is the child of class Person which will inherit properties from its Parent class
+class Man extends Person {
+  // Properties
+  professional;
+  constructor(firstName, lastName, age, gender, professional) {
+    // lets inherit parents properties using super
+    super(firstName, lastName, age, gender);
+    this.professional = professional;
+  }
+}
+
+// New object of class Man
+const man1 = new Man("Sushil", "Pokherel", 32, "Male", "Teacher");
+console.log(`${man1.firstName} is a ${man1.professional}.`);
+
+// Women is the child of class Person which will inherit properties from its Parent class
+class Women extends Person {
+  // Properties
+  professional;
+  constructor(firstName, lastName, age, gender, professional) {
+    // lets inherit parents properties using super
+    super(firstName, lastName, age, gender);
+    this.professional = professional;
+  }
+}
+
+// New object of class Women
+const women1 = new Women("Depti", "Shrestha", 26, "Female", "Student");
+console.log(
+  `${women1.firstName} is a ${women1.professional} who is ${women1.personality(
+    "helpful"
+  )}.`
+);
