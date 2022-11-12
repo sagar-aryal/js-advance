@@ -2,6 +2,7 @@
 
 /* 
 1. Promises
+2. Asynchronous Function (async-await)
 */
 
 // 1. Promises
@@ -31,7 +32,7 @@ checksEvenOrOddNumber(2)
 
 // Assignment : push all even numbers to an array
 
-function pushEvenNumberToArray(num) {
+/* function pushEvenNumberToArray(num) {
   return new Promise((resolve, reject) => {
     let pushedArr = [];
     for (let i = 0; i <= num; i++) {
@@ -42,6 +43,35 @@ function pushEvenNumberToArray(num) {
     }
     resolve(pushedArr);
   });
-}
+} */
 
 pushEvenNumberToArray(10).then((value) => console.log(value));
+
+// Annynomous or self closing function
+(function () {
+  console.log("This is a self closing or annonymous function!");
+})();
+
+// 2. Asynchronous Function
+// The async and await keywords enable asynchronous, promise-based behavior to be written in a cleaner style, avoiding the need to explicitly configure promise chains
+
+async function returnsAPromise() {
+  console.log(await checksEvenOrOddNumber(1));
+  return 1;
+}
+
+returnsAPromise().then((value) => console.log(value));
+
+// Above assignment using async method
+async function pushEvenNumberToArray(num) {
+  let pushedArr = [];
+  for (let i = 0; i <= num; i++) {
+    if (i % 2 === 0) {
+      // pushedArr.push(i);
+      pushedArr = await [...pushedArr, i];
+    }
+  }
+  return pushedArr;
+}
+
+pushEvenNumberToArray(10);
