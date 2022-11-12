@@ -4,7 +4,7 @@
 1. Classes
 2. Inheritance
 3. Fetch Call (Network requests)
-4. Dependency Injection (DI) 
+
 */
 
 // 1. Classes
