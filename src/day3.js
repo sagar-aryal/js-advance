@@ -1,10 +1,9 @@
-// Topics Includes
+// Todays Topics
 
 /* 
 1. Classes
 2. Inheritance
 3. Fetch Call (Network requests)
-
 */
 
 // 1. Classes
