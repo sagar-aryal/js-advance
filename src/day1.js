@@ -7,6 +7,8 @@
 4. Dependency Injection (DI) 
 */
 
+// 1. Classes
+
 // classes are the building block of object oriented programming. Its blueprint/template for creting objects
 // Object is created from class
 
@@ -72,7 +74,8 @@ const bike3 = new BikeFn("Suzuki", 2020, "green", 5999);
 console.log(bike3.name) 
 */
 
-// Inheritance
+// 2. Inheritance
+
 // Inherit parents properties and can even change parent properties
 // Inheritance is useful for code reusability: reuse properties and methods of an existing class when we create a new class
 
@@ -151,3 +154,20 @@ console.log(
     "helpful"
   )}.`
 );
+
+// 3. Fetch API (Network Request)
+
+/* (async function () {
+  const fetchAlbum = await fetch("https://jsonplaceholder.typicode.com/albums")
+    .then((response) => response.json())
+    .then((json) => console.log(json));
+})(); */
+
+async function fetchApi() {
+  Base_URL = "https://jsonplaceholder.typicode.com/albums";
+  const response = await fetch(Base_URL);
+  const data = await response.json();
+  console.log(data);
+}
+
+fetchApi();
