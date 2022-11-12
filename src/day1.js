@@ -4,6 +4,7 @@
 1. Destructuring
 2. Object Methods
 3. Spread operator
+4. Shallow copy and Deep copy
  */
 
 const person = {
@@ -68,3 +69,45 @@ function sumOfNumbers(...args) {
   }, 0);
 }
 console.log(sumOfNumbers(1, 2, 3, 4, 5, 6, 7, 8, 9));
+
+// spread operator allows us to make a shallow copy but not a deep copy
+const newPerson = { ...person };
+console.log("newPerson", newPerson);
+
+newPerson.firstName = "Sagar";
+console.log("newPerson", newPerson);
+console.log("person", person);
+
+const personObj = {
+  firstName: "Sagar",
+  lastNameName: "Aryal",
+  address: {
+    temporary: "Nepal",
+    permanent: "Finland",
+  },
+  behaviour: () => {
+    return "Social and Friendly";
+  },
+};
+
+/* const newPersonObj = { ...personObj };
+newPersonObj.address.permanent = "London";
+console.log("newPersonObj", newPersonObj); // permanent address: London
+console.log("personObj", personObj); // permanent address: London
+ */
+
+// Instead we can use JSON stringfy method to perform deep copy only if there is no any methods in an object
+// JSON => JavaScript Object Notation => doesn't contain any methods
+
+const newPersonObj = JSON.parse(JSON.stringify(personObj));
+newPersonObj.address.permanent = "London";
+console.log("newPersonObj", newPersonObj); // permanent address: London
+console.log("personObj", personObj); // permanent address: Finland
+
+// We can use use Object.assign() if there is methods but not nested object
+let copiedPersonObj = Object.assign({}, personObj);
+copiedPersonObj.behaviour = "Rude";
+console.log("copiedPersonObj", copiedPersonObj); // behaviour: Rude
+console.log("personObj", personObj); // behaviour: Social and Friendly
+
+// We can use Loadash, a JS library that is commonly used to perform deep copy
