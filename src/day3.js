@@ -1,172 +1,77 @@
 // Todays Topics
 
 /* 
-1. Classes
-2. Inheritance
-3. Fetch Call (Network requests)
+1. Promises
+2. Asynchronous Function (async-await)
 */
 
-// 1. Classes
+// 1. Promises
 
-// classes are the building block of object oriented programming. Its blueprint/template for creting objects
-// Object is created from class
+// Why Promises were introduces?
+// Before ES6, people were using callback functions to perform asynchronous tasks in JS. However they were of limited functionality and cause confusing with codes so promises were introduced
+// Promises perform async tasks and prevents from callback hell
+// We need to initialise promise with new key and they are always returned
 
-/* class Person {
-  // Properties
-  name = "Sushi";
-  age = 35;
+function checksEvenOrOddNumber(num) {
+  return new Promise((resolve, reject) => {
+    if (typeof num !== "number") {
+      reject("This is not a number");
+    }
 
-  // Method
-  getName(name) {
-    return name;
-  }
+    if (num % 2 === 0) {
+      resolve("This is an even number");
+    }
+
+    resolve("This is odd number");
+  });
 }
 
-// Inorder to call class we need to create new object of that class
-const person1 = new Person();
-const person2 = new Person();
+checksEvenOrOddNumber(2)
+  .then((value) => console.log(value))
+  .catch((error) => console.log(error));
 
-console.log(person1.getName("Sagar"));
-console.log(person2.getName("John")); */
+// Assignment : push all even numbers to an array
 
-// Class Constructor
-// constructor is a function and its called whenever an object is created
+/* function pushEvenNumberToArray(num) {
+  return new Promise((resolve, reject) => {
+    let pushedArr = [];
+    for (let i = 0; i <= num; i++) {
+      if (i % 2 === 0) {
+        // pushedArr.push(i);
+        pushedArr = [...pushedArr, i];
+      }
+    }
+    resolve(pushedArr);
+  });
+} */
 
-class Bike {
-  // Properties
-  /* name;
-  model;
-  color;
-  price; */
+pushEvenNumberToArray(10).then((value) => console.log(value));
 
-  constructor(name, model, color, price) {
-    this.name = name;
-    this.model = model;
-    this.color = color;
-    this.price = price;
-  }
+// Annynomous or self closing function
+(function () {
+  console.log("This is a self closing or annonymous function!");
+})();
 
-  // Methods
-  sound() {
-    return "Vroom";
-  }
+// 2. Asynchronous Function
+// The async and await keywords enable asynchronous, promise-based behavior to be written in a cleaner style, avoiding the need to explicitly configure promise chains
+
+async function returnsAPromise() {
+  console.log(await checksEvenOrOddNumber(1));
+  return 1;
 }
 
-const bike1 = new Bike("Honda", 2022, "red", 14999);
-const bike2 = new Bike("Yamaha", 2018, "black", 9999);
+returnsAPromise().then((value) => console.log(value));
 
-console.log(bike1.name);
-console.log(bike2.price);
-console.log(bike1.sound());
-
-// How this is done same in function. Both do same job but doing with class is new way of doing with ES6
-
-/* 
-function BikeFn(name, model, color, price) {
-  this.name = name;
-  this.model = model;
-  this.color = color;
-  this.price = price;
+// Above assignment using async method
+async function pushEvenNumberToArray(num) {
+  let pushedArr = [];
+  for (let i = 0; i <= num; i++) {
+    if (i % 2 === 0) {
+      // pushedArr.push(i);
+      pushedArr = await [...pushedArr, i];
+    }
+  }
+  return pushedArr;
 }
 
-const bike3 = new BikeFn("Suzuki", 2020, "green", 5999);
-console.log(bike3.name) 
-*/
-
-// 2. Inheritance
-
-// Inherit parents properties and can even change parent properties
-// Inheritance is useful for code reusability: reuse properties and methods of an existing class when we create a new class
-
-class Honda extends Bike {
-  constructor(name, model, color, engine) {
-    // The super() method refers to the parent class
-    // By calling the super() method in the constructor method, we call the parent's constructor method and gets access to the parent's properties and methods
-    super(name, model, color);
-    this.engine = engine;
-  }
-  get engineNo() {
-    return this.engine;
-  }
-
-  engNo() {
-    return "Hieuuuuu";
-  }
-}
-
-const honda1 = new Honda("Suzuki", 2020, "green", 5999345566789);
-console.log(honda1.engineNo);
-console.log(honda1.sound());
-
-// Assignment
-
-// parent class Person
-class Person {
-  // properties of Person class
-  firstName;
-  lastName;
-  age;
-  gender;
-  // Lets create constructor so that it can be called whenever a new object is created
-  constructor(firstName, lastName, age, gender) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.age = age;
-    this.gender = gender;
-  }
-  // method of Person class
-  personality(behaviour) {
-    return behaviour;
-  }
-}
-
-// Man is the child of class Person which will inherit properties from its Parent class
-class Man extends Person {
-  // Properties
-  professional;
-  constructor(firstName, lastName, age, gender, professional) {
-    // lets inherit parents properties using super
-    super(firstName, lastName, age, gender);
-    this.professional = professional;
-  }
-}
-
-// New object of class Man
-const man1 = new Man("Sushil", "Pokherel", 32, "Male", "Teacher");
-console.log(`${man1.firstName} is a ${man1.professional}.`);
-
-// Women is the child of class Person which will inherit properties from its Parent class
-class Women extends Person {
-  // Properties
-  professional;
-  constructor(firstName, lastName, age, gender, professional) {
-    // lets inherit parents properties using super
-    super(firstName, lastName, age, gender);
-    this.professional = professional;
-  }
-}
-
-// New object of class Women
-const women1 = new Women("Depti", "Shrestha", 26, "Female", "Student");
-console.log(
-  `${women1.firstName} is a ${women1.professional} who is ${women1.personality(
-    "helpful"
-  )}.`
-);
-
-// 3. Fetch API (Network Request)
-
-/* (async function () {
-  const fetchAlbum = await fetch("https://jsonplaceholder.typicode.com/albums")
-    .then((response) => response.json())
-    .then((json) => console.log(json));
-})(); */
-
-async function fetchApi() {
-  Base_URL = "https://jsonplaceholder.typicode.com/albums";
-  const response = await fetch(Base_URL);
-  const data = await response.json();
-  console.log(data);
-}
-
-fetchApi();
+pushEvenNumberToArray(10);
