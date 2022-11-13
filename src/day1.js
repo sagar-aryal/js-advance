@@ -7,6 +7,7 @@
 4. Shallow copy and Deep copy
 5. Arrow Function
 6. Call, Apply and Bind
+7. Callbacks
  */
 
 const person = {
@@ -143,3 +144,42 @@ getStudentName.apply(student, ["sushi", "algorithms"]);
 // bind() creates new function
 let bindedFunction = getStudentName.bind(student);
 console.log(bindedFunction);
+
+// Callbacks
+// A callback is a function passed as an argument to another function and run after another function has finished
+// JavaScript functions are executed in the sequence they are called, not in the sequence they are defined
+
+function print(statement) {
+  console.log(statement);
+}
+
+function sum(x, y) {
+  let sum = x + y;
+  print(sum);
+}
+
+sum(1, 2);
+console.log("A");
+
+// Another example of callback
+function isOdd(num) {
+  return num % 2 !== 0;
+}
+
+function isEven(num) {
+  return num % 2 === 0;
+}
+
+function filter(numbers, cb) {
+  let result = [];
+  for (const num of numbers) {
+    if (cb(num)) {
+      result.push(num);
+    }
+  }
+  return result;
+}
+
+let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+console.log(filter(numbers, isOdd));
+console.log(filter(numbers, isEven));
