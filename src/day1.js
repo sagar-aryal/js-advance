@@ -5,6 +5,8 @@
 2. Object Methods
 3. Spread operator
 4. Shallow copy and Deep copy
+5. Arrow Function
+6. Call, Apply and Bind
  */
 
 const person = {
@@ -111,3 +113,33 @@ console.log("copiedPersonObj", copiedPersonObj); // behaviour: Rude
 console.log("personObj", personObj); // behaviour: Social and Friendly
 
 // We can use Loadash, a JS library that is commonly used to perform deep copy
+
+// Arrow Function => doesn't have scope and this keyword doesn't work with arrow function
+// It's asign with variable as an anonymous function
+
+const myFunction = () => {
+  return "This is an arrow function";
+};
+console.log(myFunction());
+
+// Call, Apply and Bind => use to change scope
+
+const student = {
+  firstName: "Sushil",
+  getFirstName() {
+    return this.firstName;
+  },
+};
+
+function getStudentName(snack, hobbey) {
+  console.log(this.getFirstName() + " loves " + snack + " and " + hobbey);
+}
+// getStudentName(); // this doesn't work as function has global scope
+// call() and apply() call value and given arguments
+// differences between call and apply is that with apply, agruments shoulb be passed in array
+getStudentName.call(student, "sushi", "algorithms");
+getStudentName.apply(student, ["sushi", "algorithms"]);
+
+// bind() creates new function
+let bindedFunction = getStudentName.bind(student);
+console.log(bindedFunction);
