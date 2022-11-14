@@ -3,6 +3,8 @@
 /* 
 1. Prototyping
 2. Inheritence
+3. Context, this keyword
+4. Set and Map
  */
 
 function Person(name) {
@@ -57,3 +59,62 @@ const child = {
 
 console.log("parent", parent.method());
 console.log("child", child.method());
+
+const person = {
+  firstName: "Sushil",
+  lastName: "Pokhrel",
+  // in getter we can't pass parameters
+  get fullName() {
+    return this.firstName + " " + this.lastName;
+  },
+
+  set setFirstName(name) {
+    this.firstName = name;
+  },
+
+  // method is similar to setter
+  /* setFirstName(name) {
+    this.firstName = name;
+  }, */
+};
+
+person.setFirstName = "Sagar";
+console.log(person.fullName);
+
+// Context
+// In js this keyword refrence to an object
+// In function this refer to Global Object, but arrow function doesn't work this keyword
+// In event this refers to the element that received the event
+
+let obj = {
+  a: 1,
+  method1() {
+    console.log(this.a);
+    let b = {
+      c: this.a,
+      method2() {
+        console.log(this.a);
+        console.log(this.c);
+      },
+    };
+    b.method2();
+  },
+};
+
+console.log(obj.method1());
+
+// Set gives the unique elements from given array (but only for primitive data type)
+const newSet = new Set([1, 2, 3, 3, 4, 1, 2, 7, 8, 4]);
+console.log(newSet);
+
+// Map store key value just like an object
+const newMap = new Map();
+newMap.set("firstName", "Sushil");
+newMap.set("lastName", "Pokhrel");
+console.log(newMap);
+console.log(newMap.get("firstName")); // gives value of that key
+console.log(newMap.has("lastName"));
+console.log(newMap.size);
+
+// In object, we use hasOwnProperty
+console.log(parent.hasOwnProperty("value"));
