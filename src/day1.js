@@ -38,3 +38,22 @@ console.log(person1.nationality2);
 
 const arr = new Array(1, 2, 3);
 console.log(arr);
+
+// Inheritance example
+const parent = {
+  value: 2,
+  method() {
+    return this.value + 1;
+  },
+};
+
+const child = {
+  // __proto__ sets the [[Prototype]] that inhiret propertie from parent.
+  __proto__: parent,
+  method() {
+    return this.value + 5;
+  },
+};
+
+console.log("parent", parent.method());
+console.log("child", child.method());
