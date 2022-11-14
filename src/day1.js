@@ -5,6 +5,7 @@
 2. Inheritence
 3. Context, this keyword
 4. Set and Map
+5. forEach(), map(), filter(), reduce()
  */
 
 function Person(name) {
@@ -118,3 +119,30 @@ console.log(newMap.size);
 
 // In object, we use hasOwnProperty
 console.log(parent.hasOwnProperty("value"));
+
+// forEach() calls a function for each elments in an array
+// It's not executed for empty elements
+const newArr = [1, 2, 3, 4, 5];
+newArr.forEach((element) => console.log(element));
+
+// map() iterate over each element in an array and gives completely new array
+const mappedArr = newArr.map((element) => {
+  return element * 2;
+});
+console.log(mappedArr);
+
+//filter() filter an array
+const filteredArr = newArr.filter((element) => {
+  if (element !== 2) {
+    return element;
+  }
+});
+console.log(filteredArr);
+
+//reduce()
+const result = newArr.reduce((acc, curr) => {
+  curr = acc + curr;
+  return curr;
+}, 0);
+
+console.log(result);
