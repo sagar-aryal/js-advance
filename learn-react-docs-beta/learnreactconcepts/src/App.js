@@ -1,3 +1,16 @@
+import FilterableProductTable from "./component-hierarchy/FilterableProductTable";
+
+const App = () => {
+  return (
+    <>
+      <FilterableProductTable />
+    </>
+  );
+};
+
+export default App;
+
+/* 
 import { useState } from "react";
 
 import MyButton from "./components/MyButton";
@@ -16,9 +29,10 @@ const App = () => {
       <MyButton count={count} handleClick={handleClick} />
       <Profile />
       <ShoppingList />
-      <MyButton count={count} handleClick={handleClick} />
+        <MyButton count={count} handleClick={handleClick} />
     </>
   );
 };
 
-export default App;
+export default App; 
+*/
