@@ -11,7 +11,8 @@ const RegistrationForm = () => {
             type="text"
             name="firstName"
             placeholder="First Name"
-            autocomplete="off"
+            autoComplete="off"
+            required
           />
         </div>
         <div className="input-box">
@@ -19,10 +20,20 @@ const RegistrationForm = () => {
             type="text"
             name="lastName"
             placeholder="Last Name"
-            autocomplete="off"
+            autoComplete="off"
+            required
           />
         </div>
-        <div className="gender">
+        <div className="input-box">
+          <input
+            type="text"
+            name="userName"
+            placeholder="User Name"
+            autoComplete="off"
+            required
+          />
+        </div>
+        {/*  <div className="gender">
           <label className="gender-title">Gender</label>
           <div className="check-box">
             <input type="checkbox" class="radio" name="gender" value="male" />
@@ -39,17 +50,23 @@ const RegistrationForm = () => {
         </div>
         <div className="input-box">
           <input type="date" name="dateOfBirth" placeholder="DOB" />
-        </div>
+        </div> */}
         <div className="input-box">
           <input
             type="email"
             name="email"
             placeholder="Email"
-            autocomplete="off"
+            autoComplete="off"
+            required
           />
         </div>
         <div className="input-box">
-          <input type="password" name="password" placeholder="Password" />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
         </div>
 
         <button type="submit" className="btn">

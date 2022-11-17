@@ -1,21 +1,55 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const LoginForm = () => {
+  const [input, setInput] = useState({
+    userName: "",
+    password: "",
+  });
+
+  const handleChange = (event) => {
+    setInput({ ...input, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (input.userName === "admin" && input.password === "admin") {
+      console.log("user is logged in", input);
+    } else {
+      console.log("wroung credientials");
+    }
+
+    setInput({
+      userName: "",
+      password: "",
+    });
+  };
+
   return (
     <div className="container">
       <h1 className="title">User Login Form</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="input-box">
           <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            autocomplete="off"
+            type="text"
+            name="userName"
+            placeholder="User Name"
+            value={input.userName}
+            onChange={handleChange}
+            autoComplete="off"
+            required
           />
         </div>
         <div className="input-box">
-          <input type="password" name="password" placeholder="Password" />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={input.password}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <button type="submit" className="btn">
