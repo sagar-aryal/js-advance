@@ -9,4 +9,4 @@
 - useState hook => used for holding data for our state.
 - Always use prevValue with setter cos it's a async process and it might cause bug if we do in sync.
 
-## Day 2
+
