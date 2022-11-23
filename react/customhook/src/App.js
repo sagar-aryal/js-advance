@@ -1,5 +1,7 @@
+import Countdown from "./components/Countdown";
+
 const App = () => {
-  return <div>App</div>;
+  return <Countdown />;
 };
 
 export default App;
