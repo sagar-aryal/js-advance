@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 const useCountdown = ({ input, setMessage }) => {
-  const [countdown, setCountdown] = useState(input);
+  const [countdown, setCountdown] = useState("0");
+
+  useEffect(() => {
+    setCountdown(input);
+  }, [input]);
 
   useEffect(() => {
     if (typeof countdown !== "number") {

@@ -6,7 +6,7 @@ const Countdown = () => {
   const [input, setInput] = useState("0");
   const [message, setMessage] = useState(false);
 
-  const [countdown] = useCountdown(input, setMessage);
+  const [countdown] = useCountdown({ input, setMessage });
 
   return (
     <div>
