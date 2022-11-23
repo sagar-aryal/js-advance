@@ -1,34 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useCountdown from "../hooks/useCountdown";
 import Message from "./Message";
 
 const Countdown = () => {
-  const [count, setCount] = useState(0);
+  const [input, setInput] = useState("0");
   const [message, setMessage] = useState(false);
 
-  useEffect(() => {
-    if (typeof count !== "number") {
-      return;
-    }
-    if (count === 0) {
-      setMessage(true);
-      return;
-    }
-
-    const timer = setInterval(() => {
-      setCount((current) => current - 1);
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [count]);
+  const [countdown] = useCountdown(input, setMessage);
 
   return (
     <div>
       <input
         type="text "
         placeholder="Enter a number..."
-        onChange={(e) => setCount(parseInt(e.target.value))}
+        onChange={(e) => setInput(parseInt(e.target.value))}
       />
-      <p>{count}</p>
-      {message && count === 0 ? <Message /> : " "}
+      <p>{countdown}</p>
+      {message && countdown === 0 ? <Message /> : " "}
     </div>
   );
 };
