@@ -11,6 +11,7 @@ const Countdown = () => {
     }
     if (count === 0) {
       setMessage(true);
+      return;
     }
 
     const timer = setInterval(() => {
