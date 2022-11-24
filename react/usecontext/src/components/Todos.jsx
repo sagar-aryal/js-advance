@@ -1,7 +1,7 @@
 import { useFetch } from "../hooks/useFetch";
 import Form from "./Form";
 import TodosLists from "./TodosLists";
-import { TodosContext } from "../usecontext/TodosContext";
+import { TodosContext } from "../context/TodosContext";
 import { useEffect, useState } from "react";
 
 const Todos = () => {
