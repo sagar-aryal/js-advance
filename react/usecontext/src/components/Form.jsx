@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TodosContext } from "../usecontext/TodosContext";
+import { TodosContext } from "../context/TodosContext";
 
 const Form = () => {
   const { input, handleChange, handleSubmit } = useContext(TodosContext);

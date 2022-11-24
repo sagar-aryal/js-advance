@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TodosContext } from "../usecontext/TodosContext";
+import { TodosContext } from "../context/TodosContext";
 
 const TodosLists = ({ strikeThrough }) => {
   const { todos, error, loading, setTodos } = useContext(TodosContext);
