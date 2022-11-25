@@ -1,4 +1,4 @@
-import { useFetch } from "../hooks/useFetch";
+/* import { useFetch } from "../hooks/useFetch";
 import Form from "./Form";
 import TodosLists from "./TodosLists";
 import { TodosContext } from "../context/TodosContext";
@@ -47,6 +47,33 @@ const Todos = () => {
       <Form />
       <TodosLists />
     </TodosContext.Provider>
+  );
+};
+
+export default Todos;
+ */
+
+// Using Reducer
+import { useFetch } from "../hooks/useFetch";
+import TodosLists from "./TodosLists";
+import { useEffect, useReducer } from "react";
+import { todosReducer } from "../reducer/reducers/todosReducer";
+import { initialTodos } from "../reducer/store/store";
+import { GET_TODOS } from "../reducer/actions/todosAction";
+
+const Todos = () => {
+  const [state, dispatch] = useReducer(todosReducer, initialTodos);
+
+  const [data] = useFetch("https://jsonplaceholder.typicode.com/todos");
+
+  useEffect(() => {
+    dispatch({ type: GET_TODOS, payload: data });
+  }, [data]);
+
+  return (
+    <>
+      <TodosLists todos={state} dispatch={dispatch} />
+    </>
   );
 };
 
