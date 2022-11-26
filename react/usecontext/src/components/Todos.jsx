@@ -53,10 +53,13 @@ const Todos = () => {
 export default Todos;
  */
 
-// Using Reducer
-import { useFetch } from "../hooks/useFetch";
-import TodosLists from "./TodosLists";
+// Using useReducer Hook
 import { useEffect, useReducer } from "react";
+
+import Form from "./Form";
+import TodosLists from "./TodosLists";
+import { useFetch } from "../hooks/useFetch";
+
 import { todosReducer } from "../reducer/reducers/todosReducer";
 import { initialTodos } from "../reducer/store/store";
 import { GET_TODOS } from "../reducer/actions/todosAction";
@@ -72,6 +75,7 @@ const Todos = () => {
 
   return (
     <>
+      <Form dispatch={dispatch} />
       <TodosLists todos={state} dispatch={dispatch} />
     </>
   );

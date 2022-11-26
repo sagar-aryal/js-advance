@@ -33,26 +33,42 @@ const TodosLists = ({ strikeThrough }) => {
 
 export default TodosLists; */
 
-// using useReducer
-import { COMPLETED_TODO } from "../reducer/actions/todosAction";
+// Using useReducer Hook
+
+import { COMPLETED_TODO, DELETE_TODO } from "../reducer/actions/todosAction";
 
 const TodosLists = ({ todos, dispatch }) => {
-  const handleClick = (id) => {
+  const handleCompleted = (id) => {
     dispatch({ type: COMPLETED_TODO, payload: id });
   };
+
+  const handleDelete = (id) => {
+    dispatch({ type: DELETE_TODO, payload: id });
+  };
+
   return (
     <div>
-      {todos?.map((todo) => (
+      {todos?.map((todo, index) => (
         <li
           key={todo.id}
-          onClick={() => handleClick(todo.id)}
           style={{
-            textDecoration: todo.completed ? "red line-through" : "none",
+            listStyle: "none",
+            background: "#f0f0f0",
           }}
         >
-          {todo.title}
+          <h2
+            onClick={() => handleCompleted(todo.id)}
+            style={{
+              textDecoration: todo.completed ? "red line-through" : "none",
+            }}
+          >
+            {index + 1} - {todo.title}
+          </h2>
+          <button>Edit</button>
+          <button onClick={handleDelete(todo.id)}>Delete</button>
         </li>
       ))}
+      X
     </div>
   );
 };

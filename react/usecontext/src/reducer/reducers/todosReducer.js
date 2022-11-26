@@ -1,6 +1,25 @@
-import { GET_TODOS, COMPLETED_TODO } from "../actions/todosAction";
+import {
+  GET_TODOS,
+  COMPLETED_TODO,
+  ADD_TODO,
+  EDIT_TODO,
+  DELETE_TODO,
+} from "../actions/todosAction";
 
-const handleClick = (state, id) => {
+const handleAddTodo = (state, title) => {
+  // return in such that newly added todo stays at the top
+  return [
+    { id: state.length + 1, userID: 1, title: title, completed: false },
+    ...state,
+  ];
+};
+
+const handleDeleteTodo = (state, id) => {
+  const todos = state.filter((todo) => todo.id !== id);
+  return todos;
+};
+
+const handleCompletedTodo = (state, id) => {
   return state.map((todo) => {
     if (todo.id === id) {
       return { ...todo, completed: !todo.completed };
@@ -13,7 +32,13 @@ export const todosReducer = (state, action) => {
     case GET_TODOS:
       return [...action.payload];
     case COMPLETED_TODO:
-      return handleClick(state, action.payload);
+      return handleCompletedTodo(state, action.payload);
+    case ADD_TODO:
+      return handleAddTodo(state, action.payload);
+
+    case EDIT_TODO:
+    case DELETE_TODO:
+      return handleDeleteTodo(state, action.payload);
     default:
       return state;
   }
