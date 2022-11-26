@@ -19,6 +19,10 @@ const handleDeleteTodo = (state, id) => {
   return todos;
 };
 
+const handleEditTodo = (state, todo) => {
+  return state.map((item) => (item.id === todo.id ? todo : item));
+};
+
 const handleCompletedTodo = (state, id) => {
   return state.map((todo) => {
     if (todo.id === id) {
@@ -30,13 +34,13 @@ const handleCompletedTodo = (state, id) => {
 export const todosReducer = (state, action) => {
   switch (action.type) {
     case GET_TODOS:
-      return [...action.payload];
+      return action.payload;
     case COMPLETED_TODO:
       return handleCompletedTodo(state, action.payload);
     case ADD_TODO:
       return handleAddTodo(state, action.payload);
-
     case EDIT_TODO:
+      return handleEditTodo(state, action.payload);
     case DELETE_TODO:
       return handleDeleteTodo(state, action.payload);
     default:

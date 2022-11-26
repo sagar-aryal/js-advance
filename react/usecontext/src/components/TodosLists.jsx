@@ -35,11 +35,19 @@ export default TodosLists; */
 
 // Using useReducer Hook
 
-import { COMPLETED_TODO, DELETE_TODO } from "../reducer/actions/todosAction";
+import {
+  COMPLETED_TODO,
+  DELETE_TODO,
+  EDIT_TODO,
+} from "../reducer/actions/todosAction";
 
 const TodosLists = ({ todos, dispatch }) => {
   const handleCompleted = (id) => {
     dispatch({ type: COMPLETED_TODO, payload: id });
+  };
+
+  const handleEdit = (id) => {
+    dispatch({ type: EDIT_TODO, payload: id });
   };
 
   const handleDelete = (id) => {
@@ -64,8 +72,8 @@ const TodosLists = ({ todos, dispatch }) => {
           >
             {index + 1} - {todo.title}
           </h2>
-          <button>Edit</button>
-          <button onClick={handleDelete(todo.id)}>Delete</button>
+          <button onClick={() => handleEdit(todo)}>Edit</button>
+          <button onClick={() => handleDelete(todo.id)}>Delete</button>
         </li>
       ))}
       X
