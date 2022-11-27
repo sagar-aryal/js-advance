@@ -30,7 +30,7 @@ const Form = ({ dispatch, input, setInput, edit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    input === "null" && dispatch({ type: ADD_TODO, payload: input });
+    input.length > 0 && dispatch({ type: ADD_TODO, payload: input });
     setInput("");
   };
   return (
