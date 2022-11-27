@@ -19,21 +19,18 @@ const Form = () => {
 
 export default Form; */
 
-import { useState } from "react";
 import { ADD_TODO } from "../reducer/actions/todosAction";
 
 // Using useReducer Hook
 
-const Form = ({ dispatch }) => {
-  const [input, setInput] = useState("");
-
+const Form = ({ dispatch, input, setInput, edit }) => {
   const handleChange = (e) => {
     setInput((_) => e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: ADD_TODO, payload: input });
+    input === "null" && dispatch({ type: ADD_TODO, payload: input });
     setInput("");
   };
   return (
@@ -45,7 +42,7 @@ const Form = ({ dispatch }) => {
         value={input}
         onChange={handleChange}
       />
-      <button>Add</button>
+      {edit ? <button>Update</button> : <button>Add</button>}
     </form>
   );
 };

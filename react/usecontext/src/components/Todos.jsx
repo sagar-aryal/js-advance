@@ -54,7 +54,7 @@ export default Todos;
  */
 
 // Using useReducer Hook
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 
 import Form from "./Form";
 import TodosLists from "./TodosLists";
@@ -65,6 +65,8 @@ import { initialTodos } from "../reducer/store/store";
 import { GET_TODOS } from "../reducer/actions/todosAction";
 
 const Todos = () => {
+  const [input, setInput] = useState("");
+  const [edit, setEdit] = useState(false);
   const [state, dispatch] = useReducer(todosReducer, initialTodos);
 
   const [data] = useFetch("https://jsonplaceholder.typicode.com/todos");
@@ -75,8 +77,13 @@ const Todos = () => {
 
   return (
     <>
-      <Form dispatch={dispatch} />
-      <TodosLists todos={state} dispatch={dispatch} />
+      <Form dispatch={dispatch} input={input} setInput={setInput} edit={edit} />
+      <TodosLists
+        todos={state}
+        dispatch={dispatch}
+        setInput={setInput}
+        setEdit={setEdit}
+      />
     </>
   );
 };

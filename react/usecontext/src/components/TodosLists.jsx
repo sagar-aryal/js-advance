@@ -41,13 +41,19 @@ import {
   EDIT_TODO,
 } from "../reducer/actions/todosAction";
 
-const TodosLists = ({ todos, dispatch }) => {
+const TodosLists = ({ todos, dispatch, setInput, setEdit }) => {
   const handleCompleted = (id) => {
     dispatch({ type: COMPLETED_TODO, payload: id });
   };
 
-  const handleEdit = (id) => {
-    dispatch({ type: EDIT_TODO, payload: id });
+  const handleEdit = (todo) => {
+    dispatch({ type: EDIT_TODO, payload: todo });
+    setInput(todo.title);
+    setEdit(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleDelete = (id) => {
@@ -76,7 +82,6 @@ const TodosLists = ({ todos, dispatch }) => {
           <button onClick={() => handleDelete(todo.id)}>Delete</button>
         </li>
       ))}
-      X
     </div>
   );
 };
