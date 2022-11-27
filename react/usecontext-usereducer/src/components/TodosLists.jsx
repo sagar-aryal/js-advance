@@ -48,7 +48,7 @@ const TodosLists = ({ todos, dispatch, setInput, setEdit }) => {
 
   const handleEdit = (todo) => {
     dispatch({ type: EDIT_TODO, payload: todo });
-    /* setInput(todo.title); */
+    setInput(todo.title);
     setEdit(true);
     window.scrollTo({
       top: 0,

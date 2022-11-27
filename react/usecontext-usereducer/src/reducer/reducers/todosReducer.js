@@ -34,7 +34,7 @@ const handleCompletedTodo = (state, id) => {
 export const todosReducer = (state, action) => {
   switch (action.type) {
     case GET_TODOS:
-      return action.payload;
+      return [...action.payload];
     case COMPLETED_TODO:
       return handleCompletedTodo(state, action.payload);
     case ADD_TODO:
