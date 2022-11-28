@@ -1,11 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 
 const LoggedInWrapper = () => {
+  const isAuthenticated = true;
   return (
     <div>
-      <Navbar />
-      <Outlet />
+      {isAuthenticated ? (
+        <>
+          <Navbar />
+          <Outlet />
+        </>
+      ) : (
+        <Navigate to="/login" replace={true} />
+      )}
     </div>
   );
 };
