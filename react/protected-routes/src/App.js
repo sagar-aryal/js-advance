@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Navbar } from "./components";
-import { About, Contact, Home, Login, Products } from "./pages/index";
-import PrivateRoutes from "./utils/PrivateRoute";
+import { About, Contact, Home, Login, Products, Register } from "./pages/index";
 
 function App() {
   return (
@@ -14,11 +13,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         {/*      private routes   */}
-        <Route element={<PrivateRoutes />}>
-          <Route path="/products" element={<Products />} exact />
-        </Route>
+        <Route path="/products" element={<Products />} exact />
       </Routes>
     </BrowserRouter>
   );
