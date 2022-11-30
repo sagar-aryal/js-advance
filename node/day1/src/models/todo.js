@@ -1,6 +1,6 @@
 let todos = [];
 
-const todosModel = {
+const todoModel = {
   getTodos: () => {
     return todos;
   },
@@ -10,4 +10,4 @@ const todosModel = {
   },
 };
 
-module.exports = todosModel;
+module.exports = todoModel;

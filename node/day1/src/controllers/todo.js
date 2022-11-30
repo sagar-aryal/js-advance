@@ -1,9 +1,9 @@
-const todosModel = require("../models/todos");
+const todoModel = require("../models/todo");
 
-const todosController = {
+const todoController = {
   getTodos: (req, res) => {
     try {
-      const todos = todosModel.getTodos();
+      const todos = todoModel.getTodos();
       return res.status(200).json({ todos });
     } catch (error) {
       /* return res.status(401).json(error); */
@@ -14,7 +14,7 @@ const todosController = {
   postTodo: (req, res) => {
     try {
       const todo = req.body;
-      todosModel.postTodo(todo);
+      todoModel.postTodo(todo);
       return res.status(200).json({
         message: "Todo created successfully",
       });
@@ -25,4 +25,4 @@ const todosController = {
   },
 };
 
-module.exports = todosController;
+module.exports = todoController;
