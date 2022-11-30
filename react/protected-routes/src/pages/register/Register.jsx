@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { registerUser } from "../../redux/authSlice";
 
 const initialState = {
   firstname: "",
@@ -12,6 +15,8 @@ const initialState = {
 const Register = () => {
   const [input, setInput] = useState(initialState);
 
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setInput((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -20,7 +25,15 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(input);
+    // console.log(input);
+    dispatch(
+      registerUser({
+        firstname: input.firstname,
+        lastname: input.lastname,
+        email: input.email,
+        password: input.password,
+      })
+    );
     setInput(initialState);
   };
 
