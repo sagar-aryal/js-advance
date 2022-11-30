@@ -1,11 +1,11 @@
 let users = [];
 
 const userModel = {
-  getUsers: () => {
+  loginUser: () => {
     return users;
   },
 
-  postUser: (user) => {
+  registerUser: (user) => {
     users.push(user);
   },
 };
