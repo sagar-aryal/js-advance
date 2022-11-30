@@ -3,12 +3,9 @@ const todosRouter = require("./src/routes/todos");
 
 const app = express();
 
-// Global middlewares
-app.use(
-  express.json({
-    urlencoded: true,
-  })
-);
+// global middlewares
+app.use(express.json());
+app.use(express.urlencoded());
 
 // routes
 app.use("/", todosRouter);
