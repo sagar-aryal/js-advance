@@ -1,28 +1,35 @@
-const todoModel = require("../models/todo");
+const Todo = require("../models/todo");
 
-const todoController = {
-  getTodos: (req, res) => {
+const TodoController = {
+  getTodos: async (req, res) => {
     try {
-      const todos = todoModel.getTodos();
-      return res.status(200).json({ todos });
+      const todos = await Todo.find();
+      return res.status(200).json({
+        message: "Todos fetched successfully",
+        todos,
+      });
     } catch (error) {
-      /* return res.status(401).json(error); */
-      throw new Error("Failed to get todos");
+      return res
+        .status(401)
+        .json({ message: "Failed to get todos", error: error });
     }
   },
 
-  postTodo: (req, res) => {
+  postTodo: async (req, res) => {
     try {
-      const todo = req.body;
-      todoModel.postTodo(todo);
+      const { title, completed } = await req.body;
+      const todo = { title, completed };
+      const addTodo = await new Todo({ ...todo }).save();
       return res.status(200).json({
         message: "Todo created successfully",
+        todo: addTodo,
       });
     } catch (error) {
-      /*  return res.status(401).json(error); */
-      throw new Error("Failed to post todo");
+      return res
+        .status(401)
+        .json({ message: "Failed to add new todo", error: error });
     }
   },
 };
 
-module.exports = todoController;
+module.exports = TodoController;

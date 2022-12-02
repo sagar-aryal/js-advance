@@ -1,18 +1,23 @@
-const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-const todoRouter = require("./src/routes/todo");
-const userRouter = require("./src/routes/user");
+const app = require("./src/config/express");
 
-const app = express();
+dotenv.config();
 
-// global middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// environmental variables
+const MONGODB_URI = process.env.MONGODB_URI;
+const PORT = process.env.PORT || 8080;
 
-// routes
-app.use("/", todoRouter);
-app.use("/", userRouter);
+// mongodb connection
+mongoose.connect(MONGODB_URI, (err) => {
+  if (err) {
+    return console.log("Server is not connected to database", err);
+  }
+  return console.log("Server is connected to database successfully");
+});
 
-app.listen(8000, () => {
-  console.log("Server is running at port 8000");
+// listens on port for connection
+app.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT} `);
 });

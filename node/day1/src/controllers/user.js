@@ -1,60 +1,68 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
-const userModel = require("../models/user");
+const User = require("../models/user");
 
-const userController = {
+const UserController = {
   // login user
   loginUser: async (req, res) => {
     try {
-      const users = await userModel.loginUser();
+      const users = await User.find();
 
-      const loginUser = req.body;
-      const existingUser = users.find((item) => item.email === loginUser.email);
+      const loginUser = await req.body;
+      const existingUser = await users.find(
+        (item) => item.email === loginUser.email
+      );
 
       if (!existingUser) {
-        return res
-          .status(201)
-          .json({ error: "User doesn't exist, register as a new user " });
-      } else {
-        // check user password with hashed password stored in the database
-        const validPassword = await bcrypt.compare(
-          loginUser.password,
-          existingUser.password
-        );
-        if (!validPassword) {
-          res.status(400).json({ error: "Invalid Password" });
-        } else {
-          res.status(200).json({ message: "Logged in successfully" });
-        }
+        return res.status(201).json({
+          message: "User doesn't exist, register as a new user",
+          error,
+        });
       }
+
+      // check user password with hashed password stored in the database
+      const validPassword = await bcrypt.compareSync(
+        loginUser.password,
+        existingUser.password
+      );
+
+      if (!validPassword) {
+        return res.status(400).json({ message: "Invalid Password", error });
+      }
+      return res.status(200).json({ message: "Logged in successfully" });
     } catch (error) {
-      /* return res.status(401).json(error); */
-      throw new Error("Failed to get users");
+      return res.status(401).json({
+        message: "Login failed. Please provide the correct credientials",
+        error,
+      });
     }
   },
 
   // register new user
   registerUser: async (req, res) => {
     try {
-      const user = req.body;
+      const { email, password } = await req.body;
 
-      if (!(user.email && user.password)) {
-        return res.status(201).json({ error: "Enter your email and password" });
-      } else {
-        // set user password to hashed password
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(user.password, salt);
-        userModel.registerUser(user);
-        return res.status(200).json({
-          message: "User created successfully",
-          user,
-        });
+      if (!email && !password) {
+        return res
+          .status(201)
+          .json({ message: "Enter your email and password", error });
       }
+
+      // set user password to hashed password
+      var salt = await bcrypt.genSaltSync(10);
+      hash = await bcrypt.hashSync(password, salt);
+      const registerUser = await new User({ email, password: hash }).save();
+      return res.status(200).json({
+        message: "User created successfully",
+        user_Id: registerUser._id,
+      });
     } catch (error) {
-      /*  return res.status(401).json(error); */
-      throw new Error("Failed to post user");
+      return res
+        .status(401)
+        .json({ message: "Please register again as a new user", error });
     }
   },
 };
 
-module.exports = userController;
+module.exports = UserController;

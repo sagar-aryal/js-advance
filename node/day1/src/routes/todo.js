@@ -1,9 +1,9 @@
 const express = require("express");
-const todoController = require("../controllers/todo");
+const TodoController = require("../controllers/todo");
 
-const todoRouter = express.Router();
+const TodoRouter = express.Router();
 
-todoRouter.get("/todos", todoController.getTodos);
-todoRouter.post("/todos", todoController.postTodo);
+TodoRouter.get("/getTodos", TodoController.getTodos);
+TodoRouter.post("/addTodo", TodoController.postTodo);
 
-module.exports = todoRouter;
+module.exports = TodoRouter;

@@ -1,13 +1,15 @@
-let todos = [];
+const mongoose = require("mongoose");
 
-const todoModel = {
-  getTodos: () => {
-    return todos;
+const Schema = mongoose.Schema;
+
+const TodoSchema = new Schema({
+  title: {
+    type: String,
+    required: [true, "please add first name"],
+    maxlength: [100, "first name cannot be more than 100 characters"],
   },
+  completed: { type: Boolean, default: false },
+});
 
-  postTodo: (todo) => {
-    todos.push(todo);
-  },
-};
-
-module.exports = todoModel;
+const Todo = mongoose.model("Todo", TodoSchema);
+module.exports = Todo;
