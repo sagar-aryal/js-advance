@@ -3,31 +3,28 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 
 const UserController = {
-  // login user
   loginUser: async (req, res) => {
     try {
-      const users = await User.find();
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
 
-      const loginUser = await req.body;
-      const existingUser = await users.find(
-        (item) => item.email === loginUser.email
-      );
-
-      if (!existingUser) {
-        return res.status(201).json({
-          message: "User doesn't exist, register as a new user",
+      // first find user if exits then only compare password
+      if (!user) {
+        return res.status(401).json({
+          message:
+            "Authentication failed. Please provide the correct credientials",
           error,
         });
       }
 
-      // check user password with hashed password stored in the database
-      const validPassword = await bcrypt.compareSync(
-        loginUser.password,
-        existingUser.password
-      );
-
+      // if user was already registered, then only compare password if it matches or not
+      const validPassword = await bcrypt.compare(password, user.password);
       if (!validPassword) {
-        return res.status(400).json({ message: "Invalid Password", error });
+        return res.status(401).json({
+          message:
+            "Authentication failed. Please provide the correct credientials",
+          error,
+        });
       }
       return res.status(200).json({ message: "Logged in successfully" });
     } catch (error) {
@@ -38,24 +35,22 @@ const UserController = {
     }
   },
 
-  // register new user
   registerUser: async (req, res) => {
     try {
       const { email, password } = await req.body;
 
       if (!email && !password) {
         return res
-          .status(201)
+          .status(409)
           .json({ message: "Enter your email and password", error });
       }
-
-      // set user password to hashed password
-      var salt = await bcrypt.genSaltSync(10);
-      hash = await bcrypt.hashSync(password, salt);
-      const registerUser = await new User({ email, password: hash }).save();
+      // don't use sync method  because it is cpu tintensive and might block our event loop
+      var salt = await bcrypt.genSalt(10);
+      hash = await bcrypt.hash(password, salt);
+      const { _id } = await new User({ email, password: hash }).save();
       return res.status(200).json({
         message: "User created successfully",
-        user_Id: registerUser._id,
+        user_id: _id,
       });
     } catch (error) {
       return res
