@@ -1,12 +1,16 @@
 const Todo = require("../models/todo");
+const todoServices = require("../services/todo");
 
 const TodoController = {
   getTodos: async (req, res) => {
     try {
-      const todos = await Todo.find();
+      const { title, completed } = await req.body;
+      const todos = new Todo({ title, completed });
+
+      const allTodos = await todoServices.getAllTodos(todos);
       return res.status(200).json({
         message: "Todos fetched successfully",
-        todos,
+        allTodos,
       });
     } catch (error) {
       return res
@@ -18,8 +22,9 @@ const TodoController = {
   postTodo: async (req, res) => {
     try {
       const { title, completed } = await req.body;
-      const todo = { title, completed };
-      const addTodo = await new Todo({ ...todo }).save();
+      const todo = new Todo({ title, completed });
+
+      const addTodo = await todoServices.createTodo(todo);
       return res.status(200).json({
         message: "Todo created successfully",
         todo: addTodo,
