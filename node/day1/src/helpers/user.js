@@ -22,18 +22,16 @@ const compareHash = async (plainString, hash) => {
   }
 };
 
-const generateToken = async ({ id, email }) => {
+const generateToken = async (id) => {
   try {
     const token = await jwt.sign(
+      id,
       {
         exp: Math.floor(Date.now() / 1000) + 60 * 60,
-        data: {
-          id: id,
-          email: email,
-        },
       },
       JWT_SECRET
     );
+
     return token;
   } catch (error) {
     throw error;

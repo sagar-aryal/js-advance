@@ -25,11 +25,7 @@ const userServices = {
       }
 
       // generate token using jwt
-      const token = await generateToken({
-        id: user._id,
-        email: user.email,
-      });
-      console.log(token);
+      const token = await generateToken(user._id);
 
       //deep cloning user and delete passport for security purpose
       // const loggedInUser = JSON.parse(JSON.stringify(user));
