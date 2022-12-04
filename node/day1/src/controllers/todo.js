@@ -4,7 +4,7 @@ const todoServices = require("../services/todo");
 const TodoController = {
   getTodos: async (req, res) => {
     try {
-      const { title, completed } = await req.body;
+      const { title, completed } = req.body;
       const todos = new Todo({ title, completed });
 
       const allTodos = await todoServices.getAllTodos(todos);
@@ -21,7 +21,7 @@ const TodoController = {
 
   postTodo: async (req, res) => {
     try {
-      const { title, completed } = await req.body;
+      const { title, completed } = req.body;
       const todo = new Todo({ title, completed });
 
       const addTodo = await todoServices.createTodo(todo);

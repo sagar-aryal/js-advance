@@ -4,34 +4,36 @@ const userServices = require("../services/user");
 const UserController = {
   loginUser: async (req, res) => {
     try {
-      const { email, password } = await req.body;
+      const { email, password } = req.body;
 
-      const user = await new User({
+      const user = new User({
         email,
         password,
       });
 
-      await userServices.loginUser(user);
-      res.status(200).json({ message: "User loggedin successfully", user });
+      const loggedInUser = await userServices.loginUser(user);
+      res
+        .status(200)
+        .json({ message: "User loggedin successfully", loggedInUser });
     } catch (error) {
-      return res.status(401).json({ message: "Not authorised", error });
+      return res.status(401).json({ message: "User loggin failed", error });
     }
   },
 
   registerUser: async (req, res) => {
     try {
-      const { email, password } = await req.body;
+      const { email, password } = req.body;
 
-      const user = await new User({
+      const user = new User({
         email,
         password,
       });
 
-      await userServices.registerUser({
+      const registeredUser = await userServices.registerUser(user);
+      res.status(200).json({
         message: "User registered successfully",
-        email: user.email,
+        registeredUser,
       });
-      res.json(user);
     } catch (error) {
       return res.status(401).json({ message: "User registered failed", error });
     }
