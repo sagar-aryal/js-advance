@@ -16,7 +16,7 @@ const UserController = {
         .status(200)
         .json({ message: "User loggedin successfully", loggedInUser });
     } catch (error) {
-      return res.status(401).json({ message: "User loggin failed", error });
+      return res.status(401).json({ message: error.message });
     }
   },
 
@@ -35,7 +35,7 @@ const UserController = {
         registeredUser,
       });
     } catch (error) {
-      return res.status(401).json({ message: "User registered failed", error });
+      return res.status(401).json({ message: error.message });
     }
   },
 };

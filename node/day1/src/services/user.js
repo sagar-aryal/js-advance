@@ -25,13 +25,14 @@ const userServices = {
       }
 
       // generate token using jwt
-      const token = await generateToken({ id: user._id, email: user.email });
+      const token = generateToken({ id: user._id, email: user.email });
+
+      // const loggedInUser = new User(isUserExist);
 
       //deep cloning user and delete passport for security purpose
-      // const loggedInUser = JSON.parse(JSON.stringify(user));
+      const loggedInUser = JSON.parse(JSON.stringify(user));
 
-      const loggedInUser = await new User(user);
-
+      delete loggedInUser.password;
       return { loggedInUser, token };
     } catch (error) {
       throw error;
@@ -51,11 +52,12 @@ const userServices = {
 
       // hash password
       const hashedPassword = await hashPassword(password);
+
       const registeredUser = new User({
         email,
         password: hashedPassword,
       }).save();
-      delete (await registeredUser).password;
+      delete registeredUser.password;
       return registeredUser;
     } catch (error) {
       throw error;
