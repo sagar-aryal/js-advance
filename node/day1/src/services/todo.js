@@ -2,11 +2,13 @@ const Todo = require("../models/todo");
 
 const todoServices = {
   getAllTodos: async () => {
-    return Todo.find();
+    const allTodos = await Todo.find();
+    return allTodos;
   },
 
   createTodo: async (todo) => {
-    return todo.save();
+    const addTodo = await todo.save();
+    return addTodo;
   },
 };
 

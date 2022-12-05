@@ -12,8 +12,8 @@ const verifyAuth = async (req, res, next) => {
       throw new Error("Authentication token nor found");
     }
 
-    const user = jwt.verify(token, JWT_SECRET);
-    console.log(user);
+    const verify = jwt.verify(token, JWT_SECRET);
+    const user = await User.findOne({ _id: verify.id });
     req.user = user;
     next();
   } catch (error) {
