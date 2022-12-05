@@ -25,12 +25,13 @@ const userServices = {
       }
 
       // generate token using jwt
-      const token = generateToken({ id: user._id, email: user.email });
+      const token = await generateToken({ id: user._id, email: user.email });
 
       //deep cloning user and delete passport for security purpose
       // const loggedInUser = JSON.parse(JSON.stringify(user));
 
       const loggedInUser = await new User(user);
+
       return { loggedInUser, token };
     } catch (error) {
       throw error;

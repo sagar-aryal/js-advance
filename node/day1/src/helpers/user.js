@@ -23,12 +23,16 @@ const compareHash = async (plainString, hash) => {
 };
 
 const generateToken = ({ id, email }) => {
-  console.log(id);
   try {
-    const token = jwt.sign({ id, email }, JWT_SECRET, {
-      exp: Math.floor(Date.now() / 1000) + 60 * 60,
-    });
+    const token = jwt.sign(
+      {
+        id,
+        email,
+      },
+      JWT_SECRET,
 
+      { expiresIn: "1h" }
+    );
     return token;
   } catch (error) {
     throw error;
