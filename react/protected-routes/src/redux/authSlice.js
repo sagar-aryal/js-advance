@@ -11,7 +11,7 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (body) => {
-    const response = await fetch(`http://localhost:5000/api/v1/register`, {
+    const response = await fetch(`http://localhost:5000/api/v1/user/getUser`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",

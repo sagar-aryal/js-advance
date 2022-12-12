@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { registerUser } from "../../redux/authSlice";
@@ -14,6 +14,7 @@ const initialState = {
 
 const Register = () => {
   const [input, setInput] = useState(initialState);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -35,6 +36,7 @@ const Register = () => {
       })
     );
     setInput(initialState);
+    navigate("/login");
   };
 
   return (
